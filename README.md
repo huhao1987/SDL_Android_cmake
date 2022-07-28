@@ -6,9 +6,13 @@
 ##### I want to do the less modification for the SDL source, so follow my method, you could use the latest code from SDL, if they don`t change a lot.
 
 1. Build your Android project by using "Native c++" in Android studio
+
 2. Download the latest SDL source code rom github https://github.com/libsdl-org/SDL and unzip them in a folder named "SDL"
+
 3. Put the SDL folder in cpp folder of the project
+
 4. Create your c++ source file for your SDL development in the cpp folder
+
 5. Edit the CmakeLists.txt in the base cpp folder, overwirte it as 
 
 ```c++
@@ -27,16 +31,17 @@ add_library(
 target_link_libraries(
         main
         SDL2)
-    ```
+```
+
 6. Let`s edit the build.gradle(:app), add the below code in "Android" area
 
 ```Java
   sourceSets {
         main.java.srcDirs += 'src/main/cpp/SDL/android-project/app/src/main/java'
     }
-	```
+```
 	
-	It will port the sample source code from the SDL into your current project. 
+It will port the sample source code from the SDL into your current project. 
 	
 7. Use "Refresh Linked C++ projects" and "Make Project" in Android studio and wait.
 
@@ -45,7 +50,12 @@ target_link_libraries(
 	After step 7, you could find out that the "org.libsdl.app" has been imported in your project. open the SDLActivity, and search the class "SDLGenericMotionListener_API12", copy the code of it and comment it. next, create a java class in the folder named "SDLGenericMotionListener_API12", and pause the code in it. The reason is that the origial SDL Android project uses nested class, but the kotlin doesn`t support it, we have to move it out. I am still seeking a method to fix it, but now it is the best way to do it. 
 
 9. in your MainActivity class, replace "Activity"/"AppCompatActivity" with "SDLActivity", delete all code in the class if you want. Because all code are unused.
-10. Write your c++ code in int main(int argc, char *argv[]) {}. 
+
+10. Write your c++ code in 
+```Java
+int main(int argc, char *argv[]) {}
+```
+
 11. Compile and run
 
 **If you have any question, please review the demo in the project.**
